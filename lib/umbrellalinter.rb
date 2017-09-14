@@ -17,7 +17,19 @@ module Umbrella
 		# The directories containing the umbrella header(should only be 1, so we will take the last).
 		directories = Dir.glob("./**/" + @framework_target_name + ".h")
 	 	file = File.read(directories.last)
-	 	puts directories
+	 	
+	 	import_files = []
+	 	IO.readlines(directories.last).each do |line|
+	 		if  line.start_with?("//")
+	 			if line.include? "#import <" + framework_target_name + "/"
+	 				filename = line.partition("#import <" + framework_target_name + "/").last
+	 				#remove last 2 characters(/n and >)
+	 				filename = filename.chop.chop
+	 				#Add import files to array.
+	 				import_files.push(filename)
+	 			end
+	 		end
+	 	end
 	end
   end
 end
