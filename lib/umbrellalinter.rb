@@ -1,5 +1,6 @@
 require "umbrellalinter/version"
 require "umbrellalinter/cli"
+require "umbrellalinter/xcodeprojparser"
 
 module Umbrella
   class Linter
@@ -30,6 +31,9 @@ module Umbrella
 	 			end
 	 		end
 	 	end
+	 	Umbrella::XcodeProjParser.new({
+				:import_files => @import_files
+		}).parse
 	end
   end
 end
