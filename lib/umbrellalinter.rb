@@ -21,18 +21,16 @@ module Umbrella
 	 	
 	 	import_files = []
 	 	IO.readlines(directories.last).each do |line|
-	 		if  line.start_with?("//")
-	 			if line.include? "#import <" + framework_target_name + "/"
-	 				filename = line.partition("#import <" + framework_target_name + "/").last
-	 				#remove last 2 characters(/n and >)
-	 				filename = filename.chop.chop
-	 				#Add import files to array.
-	 				import_files.push(filename)
-	 			end
+	 		if  line.start_with?("#import <" + framework_target_name + "/")
+	 			filename = line.partition("#import <" + framework_target_name + "/").last
+	 			#remove last 2 characters(/n and >)
+	 			filename = filename.chop.chop
+	 			#Add import files to array.
+				import_files.push(filename)
 	 		end
 	 	end
 	 	Umbrella::XcodeProjParser.new({
-				:import_files => @import_files
+				:import_files => import_files
 		}).parse
 	end
   end
