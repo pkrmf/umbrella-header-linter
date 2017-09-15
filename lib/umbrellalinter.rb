@@ -27,7 +27,7 @@ module Umbrella
 	 			#remove last 2 characters(/n and >)
 	 			filename = filename.chop
 	 			#Add import files to array.
-				import_files.push(filename)
+				import_files.push(filename.chop)
 	 		end
 	 	end
 	 	Umbrella::XcodeProjParser.new({

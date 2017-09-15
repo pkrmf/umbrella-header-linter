@@ -22,7 +22,6 @@ module Umbrella
 	end
 
 	def validate 
-		xcodeproj_path = ""
 		# First we need to validate that all the import files in umbrella header are set as public.
 		@import_files.each { |filename|
         	unless @project_files.key?(filename)
@@ -30,9 +29,9 @@ module Umbrella
     				t_file = Tempfile.new('filename_temp.txt')
     				File.open(@project_file_path, 'r') do |f|
       					f.each_line{|line|
-      						if line.include? filename.chop + " */;"
-      							puts "Changing the scope of " + filename.chop + " to" +" Public".green
-								newline = line.slice(0..(line.index(filename.chop + " */;")))
+      						if line.include? filename + " */;"
+      							puts "Changing the scope of " + filename + " to" +" Public".green
+								newline = line.slice(0..(line.index(filename + " */;")))
 								newline = newline + filename.chop + " */;" + " settings = {ATTRIBUTES = (Public, ); }; };"
 								t_file.puts newline
       						else 
