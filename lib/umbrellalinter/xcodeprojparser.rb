@@ -1,5 +1,6 @@
 require 'fileutils'
 require 'colorize'
+require "umbrellalinter/validator"
 
 module Umbrella
    class XcodeProjParser
@@ -31,11 +32,10 @@ module Umbrella
           }
         end
       end
-      @import_files.each { |filename|
-        unless @project_files.key?(filename)
-          puts filename.red + " needs to be set as public or your consumers won't be able to import it.".red
-        end
-      }
+      Umbrella::Validator.new({
+        :import_files => @import_files
+        :project_files => @project_files
+      }).validate
     end
   end
 end
