@@ -25,10 +25,9 @@ Or install it yourself as:
 ## Usage
 
 `umbrellalinter lint FrameworkTargetName` to lint your Framework Target.
+`umbrellalinter lint FrameworkTargetName --fix` to lint and fix your umbrella header and the file's scopes.
 
-## Usage
-
-
+__NOTE__: Take in consideration we don't know what files you want public or private, we don't know the aritecture of your application or your public API. We base our linting and fixing based on what is declared on your umbrella header or what is missing on it(Files with public scope).
 
 ## Contributing
 

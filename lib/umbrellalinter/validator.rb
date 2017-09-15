@@ -31,10 +31,9 @@ module Umbrella
     				File.open(@project_file_path, 'r') do |f|
       					f.each_line{|line|
       						if line.include? filename.chop + " */;"
+      							puts "Changing the scope of " + filename.chop + " to" +" Public".green
 								newline = line.slice(0..(line.index(filename.chop + " */;")))
-
 								newline = newline + filename.chop + " */;" + " settings = {ATTRIBUTES = (Public, ); }; };"
-
 								t_file.puts newline
       						else 
       							t_file.puts line
