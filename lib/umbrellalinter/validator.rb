@@ -10,8 +10,8 @@ module Umbrella
 	end
 
 	def initialize(options)
-			@project_files = options.fetch(:project_files)
-			@import_files = options.fetch(:import_files)
+		@import_files = options.fetch(:import_files)
+		@project_files = options.fetch(:project_files)
 	end
 
 	def validate
@@ -21,10 +21,9 @@ module Umbrella
           		puts filename.red + " needs to be set as public or your consumers won't be able to import it.".red
         	end
       	}
-
-      	@project_files.each do |scope, filename|
+      	@project_files.each do |filename, scope|
       		unless @import_files.include? filename
-      			puts filename.red + " is Public and needs to be added to the umbrella header".red
+      			puts filename.red + "is Public and needs to be added to the umbrella header".red
       		end
 		end
 	end

@@ -23,17 +23,14 @@ module Umbrella
       end
       IO.readlines(project_file_path).each do |line|
         if line.include? "in Headers"
-          @import_files.each { |filename| 
-          if line.include? filename 
-            if line.include? "settings = {ATTRIBUTES = (Public"
-              @project_files[filename] =  "Public"
-            end
+          if line.include? "settings = {ATTRIBUTES = (Public"
+            filename = line.split(/\/\* (.*?)in Headers \*\//)[1]
+            @project_files[filename] =  "Public"
           end
-          }
         end
       end
       Umbrella::Validator.new({
-        :import_files => @import_files
+        :import_files => @import_files,
         :project_files => @project_files
       }).validate
     end
