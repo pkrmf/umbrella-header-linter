@@ -4,7 +4,7 @@ require "umbrellalinter/validator"
 
 module Umbrella
    class XcodeProjParser
-   	attr_reader :import_files, :fix, :umbrella_header
+   	attr_reader :import_files, :fix, :umbrella_header, :framework_target_name
 
     def self.perform(options)
       new(options).perform
@@ -14,6 +14,7 @@ module Umbrella
       @import_files = options.fetch(:import_files)
       @fix = options.fetch(:fix)
       @umbrella_header = options.fetch(:umbrella_header)
+      @framework_target_name = options.fetch(:framework_target_name)
       @project_files = {}
     end
 
@@ -36,7 +37,8 @@ module Umbrella
         :project_files => @project_files,
         :fix => @fix,
         :project_file_path => project_file_path,
-        :umbrella_header => @umbrella_header
+        :umbrella_header => @umbrella_header,
+        :framework_target_name => @framework_target_name
       }).validate
     end
   end

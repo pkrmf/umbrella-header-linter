@@ -36,5 +36,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_runtime_dependency "thor"
   spec.add_runtime_dependency "colorize"
-  spec.add_runtime_dependency "Xcodeproj"
+  spec.add_runtime_dependency "xcodeproj"
 end

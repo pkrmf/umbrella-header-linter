@@ -33,7 +33,8 @@ module Umbrella
 	 	Umbrella::XcodeProjParser.new({
 				:import_files => import_files,
 				:fix => fix,
-				:umbrella_header => umbrella_header
+				:umbrella_header => umbrella_header,
+				:framework_target_name => @framework_target_name
 		}).parse
 	end
   end
