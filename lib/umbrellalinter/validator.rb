@@ -28,16 +28,21 @@ module Umbrella
         		if @fix
     				t_file = Tempfile.new('filename_temp.txt')
     				File.open(@project_file_path, 'r') do |f|
-      					f.each_line{|line|
+                file_found = false
+      					f.each_line{ |line|
       						if line.include? filename + " */;"
+                    file_found = true
       							puts "Changing the scope of " + filename + " to" +" Public".green
-								newline = line.slice(0..(line.index(filename + " */;")))
-								newline = newline + filename.chop + " */;" + " settings = {ATTRIBUTES = (Public, ); }; };"
-								t_file.puts newline
+								    newline = line.slice(0..(line.index(filename + " */;")))
+								    newline = newline + filename.chop + " */;" + " settings = {ATTRIBUTES = (Public, ); }; };"
+								    t_file.puts newline
       						else 
       							t_file.puts line
       						end
       					}
+                unless file_found
+                  puts "Couldn't find ".red + filename.red + " in your project. Make sure you didn't misspell it or removed it.".red
+                end
     				end
     				t_file.close
     				FileUtils.mv(t_file.path, @project_file_path)
@@ -45,20 +50,20 @@ module Umbrella
           			puts filename.red + " needs to be set as Public or your consumers won't be able to import it.".red
           		end
         	end
-      	}
+  }
       	@project_files.each do |filename, scope|
       		unless @import_files.include? filename
       			if @fix
       				unless filename.include? File.basename( umbrella_header )
       					puts "Adding ".green + filename.green + " to Umbrella Header".green
       					File.open(@umbrella_header, 'a') do |f1|  f1.write("\n#import <" + File.basename( umbrella_header, ".*" ) + "/" + filename + ">")
-						end
-					end
+						  end
+					 end
       			else
       				puts filename.red + "is Public and needs to be added to the umbrella header".red
       			end
-      		end
-		end
-	end
+          end
+		  end
+	 end
   end
 end
